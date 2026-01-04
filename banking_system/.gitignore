@@ -1,0 +1,11 @@
+# Binaries
+bin/
+
+# Object files
+*.o
+
+# Documentation we don't need to push (if requested)
+README.md
+
+# OS files
+.DS_Store
