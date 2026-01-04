@@ -42,10 +42,6 @@ void transfer(BankAccount& from, BankAccount& to, double amount) {
 int main() {
     BankAccount acc1(1, 1000.0);
     BankAccount acc2(2, 1000.0);
-
-    std::cout << "Starting Level 3: Deadlock Test" << std::endl;
-
-    // TODO: Create threads that transfer between acc1 and acc2 simultaneously
     std::thread t1(transfer, std::ref(acc1), std::ref(acc2), 100.0);
     std::thread t2(transfer, std::ref(acc2), std::ref(acc1), 100.0);
 

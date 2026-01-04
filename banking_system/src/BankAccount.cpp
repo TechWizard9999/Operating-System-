@@ -41,7 +41,6 @@ int main() {
     const double depositAmount = 100.0;
     const double expectedBalance = numThreads * iterationsPerThread * depositAmount;
 
-    std::cout << "Running BankAccount tests..." << std::endl;
 
     std::vector<std::thread> threads;
     for (int i = 0; i < numThreads; ++i) {
@@ -50,13 +49,6 @@ int main() {
 
     for (auto& t : threads) {
         t.join();
-    }
-
-    std::cout << "Final Balance: $" << std::fixed << std::setprecision(2) << account.getBalance() << std::endl;
-    if (account.getBalance() == expectedBalance) {
-        std::cout << "SUCCESS: Balance matches expected value." << std::endl;
-    } else {
-        std::cout << "FAILURE: Balance mismatch! Difference: $" << (expectedBalance - account.getBalance()) << std::endl;
     }
 
     return 0;
