@@ -5,9 +5,9 @@ TSAN_FLAGS = -fsanitize=thread -g
 SRC_DIR = src
 BIN_DIR = bin
 
-.PHONY: all clean level1 level1_tsan level2 level2_tsan
+.PHONY: all clean level1 level1_tsan level2 level2_tsan level3 level3_tsan
 
-all: level1 level2
+all: level1 level2 level3
 
 $(BIN_DIR):
 	mkdir -p $(BIN_DIR)
@@ -25,6 +25,13 @@ level2: $(BIN_DIR)
 
 level2_tsan: $(BIN_DIR)
 	$(CXX) $(CXXFLAGS) $(TSAN_FLAGS) $(SRC_DIR)/TransactionQueue.cpp -o $(BIN_DIR)/level2_tsan
+
+# Level 3: Safe Transfer
+level3: $(BIN_DIR)
+	$(CXX) $(CXXFLAGS) $(SRC_DIR)/SafeTransfer.cpp -o $(BIN_DIR)/level3
+
+level3_tsan: $(BIN_DIR)
+	$(CXX) $(CXXFLAGS) $(TSAN_FLAGS) $(SRC_DIR)/SafeTransfer.cpp -o $(BIN_DIR)/level3_tsan
 
 clean:
 	rm -rf $(BIN_DIR)
