@@ -35,7 +35,7 @@ void transfer(BankAccount& from, BankAccount& to, double amount) {
     if(from.balance >= amount) {
         from.withdraw(amount);
         to.deposit(amount);
-    }
+    }       
 }
 
 // Main entry
