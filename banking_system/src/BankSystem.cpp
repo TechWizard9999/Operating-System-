@@ -78,10 +78,23 @@ public:
     }
 
     void processTransfer(int fromId, int toId, double amount) {
-        
+        if (accounts.find(fromId) == accounts.end() || accounts.find(toId) == accounts.end()) return;
+        BankAccount* from = accounts[fromId];
+        BankAccount* to = accounts[toId];
+        if (from->id == to->id) return;
+        std::scoped_lock lock(from->mtx, to->mtx);
+        if (from->balance >= amount) {
+            from->balance -= amount;
+            to->balance += amount;
+        }
     }
     void runAudit() const {
-        
+        double total = 0;
+        for (auto const& [id, acc] : accounts) {
+            std::shared_lock<std::shared_mutex> lock(acc->mtx);
+            total += acc->balance;
+        }
+        std::cout << "Total Bank Assets: " << total << std::endl;
     }
 };
 

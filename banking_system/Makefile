@@ -7,7 +7,7 @@ BIN_DIR = bin
 
 .PHONY: all clean level1 level1_tsan level2 level2_tsan level3 level3_tsan
 
-all: level1 level2 level3 level4
+all: level1 level2 level3 level4 level5 level6
 
 $(BIN_DIR):
 	mkdir -p $(BIN_DIR)
@@ -39,6 +39,20 @@ level4: $(BIN_DIR)
 
 level4_tsan: $(BIN_DIR)
 	$(CXX) $(CXXFLAGS) $(TSAN_FLAGS) $(SRC_DIR)/BankReport.cpp -o $(BIN_DIR)/level4_tsan
+
+# Level 5: Complete Banking System Integration
+level5: $(BIN_DIR)
+	$(CXX) $(CXXFLAGS) $(SRC_DIR)/BankSystem.cpp -o $(BIN_DIR)/level5
+
+level5_tsan: $(BIN_DIR)
+	$(CXX) $(CXXFLAGS) $(TSAN_FLAGS) $(SRC_DIR)/BankSystem.cpp -o $(BIN_DIR)/level5_tsan
+
+# Level 6: Debugging & Race Conditions
+level6: $(BIN_DIR)
+	$(CXX) $(CXXFLAGS) $(SRC_DIR)/RaceCondition.cpp -o $(BIN_DIR)/level6
+
+level6_tsan: $(BIN_DIR)
+	$(CXX) $(CXXFLAGS) $(TSAN_FLAGS) $(SRC_DIR)/RaceCondition.cpp -o $(BIN_DIR)/level6_tsan
 
 clean:
 	rm -rf $(BIN_DIR)
